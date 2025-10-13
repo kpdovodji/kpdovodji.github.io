@@ -1,60 +1,1016 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Dr. Kpdovodji</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctorant en Mathématiques - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .language-toggle {
+            background: linear-gradient(135deg, #2563eb, #10b981);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .language-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .math-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-formula {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.15);
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            pointer-events: none;
+            animation: float-formulas 20s linear infinite;
+        }
+
+        .floating-code {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            pointer-events: none;
+            animation: float-code 25s linear infinite;
+        }
+
+        @keyframes float-formulas {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float-code {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(-30px) rotate(-180deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            font-size: 2.5rem;
+            animation: pulse 2s ease-in-out infinite;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-photo.placeholder {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2563eb;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-highlights {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            animation: slideInRight 1s ease-out forwards;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #e0f2fe, #e8f5e8);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-item:hover {
+            transform: translateX(10px);
+        }
+
+        .highlight-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2563eb, #10b981);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Research Section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .research-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #2563eb;
+        }
+
+        .research-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .research-card h3 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .research-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .research-link {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #2563eb, #10b981);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .research-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #2563eb, #10b981);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2563eb, #10b981);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero {
+                min-height: 70vh;
+                padding: 1rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .hero .tagline {
+                font-size: 0.9rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .research-links {
+                flex-direction: column;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="#apropos" data-fr="À propos" data-en="About">À propos</a></li>
+                <li><a href="#recherche" data-fr="Recherche" data-en="Research">Recherche</a></li>
+                <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="language-toggle" onclick="toggleLanguage()" id="langToggle">🇬🇧 EN</button></li>
+            </ul>
+        </div>
+    </nav>
 
-<nav class="top-nav">
-  <ul>
-    <li><a href="index.html"><span>Home</span></a></li>
-    <li><a href="teaching.html"><span>Courses</span></a></li>
-    <li><a href="research.html"><span>Research</span></a></li>
-    <li><a href="publications.html"><span>Publications</span></a></li>
-    <li><a href="cv.html"><span>CV</span></a></li>
-    <li><a href="wellbeing.html"><span>Well-being</span></a></li>
-    <li><a href="gallery.html"><span>Gallery</span></a></li>
-    <li><a href="misc.html"><span>Misc</span></a></li>
-  </ul>
-</nav>
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="math-background" id="mathBackground"></div>
+        <div class="hero-content">
+            <div class="profile-photo placeholder" id="profilePhoto">
+                📸
+            </div>
+            <h1 data-fr="Kuassi Pierre DOVODJI" data-en="Kuassi Pierre DOVODJI">Kuassi Pierre DOVODJI</h1>
+            <p class="subtitle" data-fr="Doctorant en Mathématiques" data-en="PhD Student in Mathematics">PhD Student in Mathematics</p>
+            <p class="tagline" data-fr="Spécialisé en modélisation statistique et océanographie mathématique" data-en="Specialized in statistical modeling and mathematical oceanography">Specialized in statistical modeling and mathematical oceanography</p>
+        </div>
+    </section>
 
-<!-- Le reste du contenu -->
-<main>
-  <section id="home">
-  <div style="display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap;">
-    <img src="logo.png" alt="Photo of K. P. Dovodji" style="max-width: 180px; border-radius: 10px;">
+    <!-- About Section -->
+    <section id="apropos" class="section about">
+        <div class="container">
+            <h2 class="section-title" data-fr="À propos" data-en="About">À propos</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-fr="En tant que doctorant en mathématiques, je me passionne pour l'exploration des concepts mathématiques complexes et leur application dans le domaine de l'informatique. Mon parcours académique m'a mené à développer une expertise approfondie dans plusieurs domaines mathématiques fondamentaux." data-en="As a PhD student in mathematics, I am passionate about exploring complex mathematical concepts and their application in computer science. My academic journey has led me to develop deep expertise in several fundamental mathematical domains.">En tant que doctorant en mathématiques, je me passionne pour l'exploration des concepts mathématiques complexes et leur application dans le domaine de l'informatique. Mon parcours académique m'a mené à développer une expertise approfondie dans plusieurs domaines mathématiques fondamentaux.</p>
+                    
+                    <p data-fr="Au-delà de mes recherches, j'apprécie particulièrement les moments d'équilibre que m'offrent mes loisirs. Les balades en nature me permettent de me ressourcer et de stimuler ma créativité, tandis que la lecture de romans nourrit mon imagination. Je maintiens également une veille scientifique active à travers la lecture d'articles de recherche et je reste connecté à l'actualité mondiale via les journaux télévisés." data-en="Beyond my research, I particularly appreciate the moments of balance that my hobbies provide. Nature walks allow me to recharge and stimulate my creativity, while reading novels nourishes my imagination. I also maintain active scientific monitoring through reading research articles and stay connected to world news via television broadcasts.">Au-delà de mes recherches, j'apprécie particulièrement les moments d'équilibre que m'offrent mes loisirs. Les balades en nature me permettent de me ressourcer et de stimuler ma créativité, tandis que la lecture de romans nourrit mon imagination. Je maintiens également une veille scientifique active à travers la lecture d'articles de recherche et je reste connecté à l'actualité mondiale via les journaux télévisés.</p>
+                </div>
+                
+                <div class="about-highlights">
 
-    <div id="contact">
-        <p><strong>Kuassi Pierre DOVODJI</strong><br>
-        Institut de Mathématiques de Bourgogne (UMR 5584 CNRS)<br>
-        Université Bourgogne Europe <br>
-        📍 9 avenue Alain Savary, 21000 Dijon, France<br>
-        📧 <a href="mailto:dovodjipierre@gmail.com">dovodjipierre@gmail.com</a>
-        🔗 <a href="https://www.linkedin.com/in/pierre-dovodji-52535222a" target="_blank">LinkedIn</a>
-        🔗 <a href="https://github.com/kpdovodji" target="_blank" rel="noopener">GitHub</a>.
-        </p>
-        <p>
-            I am currently a PhD student in Applied Mathematics at the University of Burgundy Europe,
-            under the supervision of 
-            <a href="https://cardot.perso.math.cnrs.fr/" target="_blank">Prof. Hervé Cardot (IMB)</a> 
-            and 
-            <a href="https://people.mio.osupytheas.fr/nerini.david/" target="_blank">Dr. David Nerini (MIO)</a>.
-            I hold two master’s degrees: one in Statistical Modeling from Université Marie et Louis Pasteur, France and 
-            another in Mathematical Engineering from Université Bretagne Sud, France.
-        </p>
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🌊</div>
+                        <div>
+                            <strong data-fr="Recherche doctorale" data-en="PhD Research">PhD Research</strong><br>
+                            <span data-fr="Océanographie mathématique" data-en="Mathematical oceanography">Mathematical oceanography</span>
+                        </div>
+                    </div>
 
-        <p>
-            My research focuses on developing new statistical models, particularly oriented towards oceanography. 
-            I have experience in statistical analysis, machine learning, and mathematical modeling, and 
-            I am passionate about applying these methods to environmental data.
-        </p>
-    </div>
-  </div>
-</section>
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🎓</div>
+                        <div>
+                            <strong data-fr="Formation académique" data-en="Academic Background">Academic Background</strong><br>
+                            <span data-fr="Master Ingénierie Mathématique (1er/20)" data-en="Master's in Mathematical Engineering (1st/20)">Master's in Mathematical Engineering (1st/20)</span><br>
+                            <span data-fr="Master Modélisation Statistique (3e/20)" data-en="Master's in Statistical Modeling (3th/20)">Master's in Statistical Modeling (1st/20)</span><br>
+                            <span data-fr="Licence Mathématiques Fondamentales" data-en="Bachelor's in Fundamental Mathematics">Bachelor's in Fundamental Mathematics</span>
+                        </div>
+                    </div>
 
-</main>
+                    <div class="highlight-item">
+                        <div class="highlight-icon">💻</div>
+                        <div>
+                            <strong data-fr="Compétences techniques" data-en="Technical Skills">Technical Skills</strong><br>
+                            <span data-fr="Statistiques, data science, apprentissage automatique et profond, biostatistiques, séries temporelles, optimisation, traitement d’images, fiabilité, sondages, Python, R, Julia, SQL, SAS, C++" 
+                                data-en="Statistics, data science, machine & deep learning, biostatistics, time series, optimization, image processing, reliability, survey methodology, Python, R, Julia, SQL, SAS, C++">Statistics, data science, machine & deep learning, biostatistics, time series, optimization, image processing, reliability, survey methodology, Python, R, Julia, SQL, SAS, C++</span><br>
+                            <span data-fr="Bibliothèques & frameworks : scikit-learn, pandas, NumPy, Matplotlib, Seaborn, Plotly, SciPy, Statsmodels, TensorFlow, Keras, PyTorch" 
+                                data-en="Libraries & frameworks: scikit-learn, pandas, NumPy, Matplotlib, Seaborn, Plotly, SciPy, Statsmodels, TensorFlow, Keras, PyTorch">Libraries & frameworks: scikit-learn, pandas, NumPy, Matplotlib, Seaborn, Plotly, SciPy, Statsmodels, TensorFlow, Keras, PyTorch</span><br>
+                            <span data-fr="Développement Web & Bases de données : HTML, CSS, JavaScript, PHP, MySQL, WordPress" 
+                                data-en="Web & Databases: HTML, CSS, JavaScript, PHP, MySQL, WordPress">Web & Databases: HTML, CSS, JavaScript, PHP, MySQL, WordPress</span><br>
+                            <span data-fr="Visualisation : Power BI, Matplotlib, Seaborn, Plotly" data-en="Visualization: Power BI, Matplotlib, Seaborn, Plotly">Visualization: Power BI, Matplotlib, Seaborn, Plotly</span>
+                        </div>
+                    </div>
 
+                                        
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🌟</div>
+                        <div>
+                            <strong data-fr="Savoir-être" data-en="Soft Skills">Soft Skills</strong><br>
+                            <span data-fr="Autonome, Rigoureux, Organisé, Agile et Curieux" data-en="Autonomous, Rigorous, Organized, Agile, and Curious">Autonomous, Rigorous, Organized, Agile, and Curious</span>
+                        </div>
+                    </div>
+                    
+                
+                    
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🎵</div>
+                        <div>
+                            <strong data-fr="Loisirs" data-en="Interests">Interests</strong><br>
+                            <span data-fr="Musique (Pop, Gospel), Voyages" data-en="Music (Pop, Gospel), Travel">Music (Pop, Gospel), Travel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="recherche" class="section">
+        <div class="container">
+            <h2 class="section-title" data-fr="Recherche & Projets" data-en="Research & Projects">Recherche & Projets</h2>
+            
+            <div class="research-grid">
+                <div class="research-card">
+                    <h3 data-fr="Thèse de doctorat" data-en="PhD Thesis">PhD Thesis</h3>
+                        <p data-fr="Développement de nouveaux modèles statistiques pour l'analyse de données fonctionnelles, motivés par des applications en océanographie. L'objectif est de proposer des méthodes innovantes pour traiter des données partielles ou complexes et explorer leurs structures sous-jacentes."
+                        data-en="Development of new statistical models for the analysis of functional data, motivated by applications in oceanography. The aim is to provide innovative methods to handle partial or complex data and explore their underlying structures.">
+                        </p>
+                    <div class="research-links">
+                        <a href="https://github.com/kpdovodji" class="research-link">GitHub</a>
+                        <a href="#" class="research-link" data-fr="Article" data-en="Paper">Paper</a>
+                    </div>
+                </div>
+
+                <div class="research-card">                     
+                    <h3 data-fr="Mémoire M2 - UMLP" data-en="Master's Thesis - UMLP">Master's Thesis - UMLP</h3>                     
+                        <p data-fr="Approximation statistique des courants océaniques : développement d'une méthode pour estimer des champs vectoriels partiellement observés en résumant leur vitesse, direction et flux global."
+                    data-en="Statistical approximation of ocean currents: development of a method to estimate partially observed vector fields by summarizing their speed, direction, and overall flow patterns.">
+                    </p>
+                    <div class="research-links">                         
+                        <a href="#" class="research-link">PDF</a>                         
+                        <a href="#" class="research-link" data-fr="Code" data-en="Code">Code</a>                     
+                    </div>                 
+                </div>
+                
+                <div class="research-card">
+                    <h3 data-fr="Mémoire Master 2 - UBS" data-en="Master's Thesis - UBS">Master's Thesis - UBS</h3>
+                    <p data-fr="Segmentation perceptuelle d'images : combiner modèles probabilistes et méthodes d'apprentissage. Développement d'une méthode combinant modèles de mélanges probabilistes et réseaux de neurones." data-en="Perceptual image segmentation: combining probabilistic models and learning methods. Development of a method combining probabilistic mixture models and neural networks.">Perceptual image segmentation: combining probabilistic models and learning methods. Development of a method combining probabilistic mixture models and neural networks.</p>
+                    <div class="research-links">
+                        <a href="#" class="research-link">PDF</a>
+                        <a href="#" class="research-link" data-fr="Code" data-en="Code">Code</a>
+                    </div>
+                </div>
+
+                
+                <div class="research-card">
+                    <h3 data-fr="Stage Master 1" data-en="Master's Internship">Master's Internship</h3>
+                    <p data-fr="Analyse de données à L'Atelier de Francisco, Besançon. Gestion des données manquantes, analyse de la satisfaction client, prévision des réservations avec méthodes statistiques avancées." data-en="Data analysis at L'Atelier de Francisco, Besançon. Missing data management, customer satisfaction analysis, reservation forecasting with advanced statistical methods.">Data analysis at L'Atelier de Francisco, Besançon. Missing data management, customer satisfaction analysis, reservation forecasting with advanced statistical methods.</p>
+                    <div class="research-links">
+                        <a href="#" class="research-link" data-fr="Rapport" data-en="Report">Report</a>
+                        <a href="#" class="research-link">R Code</a>
+                    </div>
+                </div>
+                
+                <div class="research-card">
+                    <h3 data-fr="Projets GitHub" data-en="GitHub Projects">GitHub Projects</h3>
+                    <p data-fr="Collection de projets appliqués et lectures d'articles scientifiques reconnus pour leur qualité et rigueur par les enseignants. Travaux en statistiques, machine learning et data science." data-en="Collection of applied projects and scientific article reviews recognized for their quality and rigor by professors. Work in statistics, machine learning and data science.">Collection of applied projects and scientific article reviews recognized for their quality and rigor by professors. Work in statistics, machine learning and data science.</p>
+                    <div class="research-links">
+                        <a href="https://github.com/kpdovodji" class="research-link">GitHub</a>
+                        <a href="#" class="research-link" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;" data-fr="Contact" data-en="Contact">Contact</h2>
+            
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3 data-fr="Envoyez-moi un message" data-en="Send me a message">Envoyez-moi un message</h3>
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="nom" data-fr="Nom complet" data-en="Full Name">Nom complet</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" data-fr="Message" data-en="Message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" data-fr="Envoyer le message" data-en="Send message">Envoyer le message</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            dovodjipierre@gmail.com
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <strong>LinkedIn</strong><br>
+                            pierre-dovodji-52535222a
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">💻</div>
+                        <div>
+                            <strong>GitHub</strong><br>
+                            github.com/kpdovodji
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🏛️</div>
+                        <div>
+                            <strong data-fr="Institutions" data-en="Institutions">Institutions</strong><br>
+                            <span data-fr="IMB (Bourgogne) & MIO (Marseille)" data-en="IMB (Burgundy) & MIO (Marseille)">IMB (Burgundy) & MIO (Marseille)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong data-fr="Localisation" data-en="Location">Location</strong><br>
+                            <span data-fr="Besançon, France" data-en="Besançon, France">Besançon, France</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mathematical formulas and code snippets
+        const mathFormulas = [
+            '∫f(x)dx', '∇²φ = 0', 'E = mc²', '∂u/∂t + u·∇u = -∇p + ν∇²u',
+            'lim_{n→∞} (1+1/n)ⁿ = e', '∑_{i=1}^n xᵢ', 'P(A|B) = P(B|A)P(A)/P(B)',
+            'det(A) = ∑σ sgn(σ)∏aᵢ,σ(ᵢ)', '∇ × B = μ₀J', 'Δx·Δp ≥ ħ/2',
+            'f\'(x) = lim_{h→0} [f(x+h)-f(x)]/h', '∫₋∞^∞ e^(-x²) dx = √π',
+            'div F = ∇·F', 'curl F = ∇×F', 'λx = Ax', '||x||₂ = √(∑xᵢ²)',
+            'σ² = E[(X-μ)²]', 'χ²(k) = ∑Zᵢ²', 'N(μ,σ²)', 'β = (XᵀX)⁻¹XᵀY'
+        ];
+
+        const codeSnippets = [
+            'import numpy as np', 'def gradient_descent():', 'plt.plot(x, y)',
+            'from scipy import optimize', 'X_train, X_test = train_test_split()',
+            'model.fit(X, y)', 'np.linalg.solve(A, b)', 'pd.DataFrame(data)',
+            'sklearn.linear_model', 'torch.nn.functional', 'tf.keras.layers',
+            'cv2.findContours()', 'spline = UnivariateSpline()', 'R²_score',
+            'matplotlib.pyplot', 'seaborn.heatmap()', 'stats.normaltest()',
+            'optimize.minimize()', 'interpolate.griddata()', 'linalg.svd()'
+        ];
+
+        // Create floating elements
+        function createFloatingElement(content, type) {
+            const element = document.createElement('div');
+            element.className = type === 'math' ? 'floating-formula' : 'floating-code';
+            element.textContent = content;
+            
+            // Random positioning and sizing
+            element.style.left = Math.random() * 100 + '%';
+            element.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+            element.style.animationDelay = Math.random() * 20 + 's';
+            element.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            
+            return element;
+        }
+
+        // Generate floating background
+        function generateMathBackground() {
+            const background = document.getElementById('mathBackground');
+            
+            // Create formulas
+            for (let i = 0; i < 15; i++) {
+                const formula = mathFormulas[Math.floor(Math.random() * mathFormulas.length)];
+                const element = createFloatingElement(formula, 'math');
+                background.appendChild(element);
+            }
+            
+            // Create code snippets
+            for (let i = 0; i < 10; i++) {
+                const code = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                const element = createFloatingElement(code, 'code');
+                background.appendChild(element);
+            }
+        }
+
+        // Regenerate elements periodically
+        function regenerateBackground() {
+            const background = document.getElementById('mathBackground');
+            background.innerHTML = '';
+            generateMathBackground();
+        }
+
+        // Language management
+        let currentLang = 'en'; // Default to English
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            updateLanguage();
+        }
+        
+        function updateLanguage() {
+            const elements = document.querySelectorAll('[data-fr][data-en]');
+            const langToggle = document.getElementById('langToggle');
+            
+            elements.forEach(element => {
+                if (currentLang === 'fr') {
+                    element.textContent = element.getAttribute('data-fr');
+                } else {
+                    element.textContent = element.getAttribute('data-en');
+                }
+            });
+            
+            // Update language toggle button
+            if (currentLang === 'fr') {
+                langToggle.innerHTML = '🇬🇧 EN';
+            } else {
+                langToggle.innerHTML = '🇫🇷 FR';
+            }
+            
+            // Update form submission message
+            updateFormMessage();
+        }
+        
+        function updateFormMessage() {
+            // This will be used in the form submission
+            window.currentFormMessage = currentLang === 'fr' 
+                ? 'Merci pour votre message ! Je vous répondrai bientôt.'
+                : 'Thank you for your message! I will reply soon.';
+        }
+
+        // Initialize with English as default
+        function initializeLanguage() {
+            const langToggle = document.getElementById('langToggle');
+            langToggle.innerHTML = '🇫🇷 FR'; // Show FR since we're in EN mode
+            updateLanguage();
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert(window.currentFormMessage || 'Merci pour votre message ! Je vous répondrai bientôt.');
+            event.target.reset();
+        }
+
+        // Initialize language and math background
+        initializeLanguage();
+        generateMathBackground();
+        
+        // Regenerate background every 30 seconds for variety
+        setInterval(regenerateBackground, 30000);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close mobile menu if open
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.research-card, .highlight-item, .contact-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
