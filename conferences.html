@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conférences - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
+                <li><a href="teaching.html" data-fr="Enseignement" data-en="Teaching">Enseignement</a></li>
+                <li><a href="publications.html" data-fr="Publications" data-en="Publications">Publications</a></li>
+                <li><a href="conferences.html" data-fr="Conférences" data-en="Conferences">Conférences</a></li>
+                <li><a href="research.html" data-fr="Recherche" data-en="Research">Recherche</a></li>
+                <li><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="language-toggle" onclick="toggleLanguage()" id="langToggle">🇬🇧 EN</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Conferences Section -->
+    <section id="conferences" class="section">
+        <div class="container">
+            <h2 class="section-title" data-fr="Conférences & Workshops" data-en="Conferences & Workshops">
+                Conférences & Workshops
+            </h2>
+
+            <div class="conferences-grid">
+                <!-- Carte 1 : 6ème École d'Hiver STATSKI -->
+                <div class="conference-card">
+                    <div class="conference-header">
+                        <div class="conference-icon">❄️</div>
+                        <div>
+                            <h3>6ᵉ École d'Hiver STATSKI</h3>
+                            <p class="conference-date">28/01 - 30/01/2026</p>
+                        </div>
+                    </div>
+
+                    <div class="conference-body">
+                        <p class="conference-location">
+                            <strong>📍 <span data-fr="Lieu" data-en="Location">Lieu</span>:</strong> 
+                            <span data-fr="Métabief" data-en="Métabief">
+                                Métabief
+                            </span>
+                        </p>
+
+                        <p class="conference-type">
+                            <strong>🎯 <span data-fr="Type" data-en="Type">Type</span>:</strong> 
+                            <span data-fr="École d'hiver en Machine Learning" data-en="Winter School in Machine Learning">École d'hiver en Machine Learning</span>
+                        </p>
+
+                        <p class="conference-topics">
+                            <strong>📚 <span data-fr="Sujets traités" data-en="Topics">Sujets traités</span>:</strong> 
+                            <span data-fr="Introduction à l'optimisation stochastique, Algorithmes proximaux et réseaux de neurones" 
+                                  data-en="Introduction to Stochastic Optimization, Proximal Algorithms and Neural Networks">
+                                    Introduction à l'optimisation stochastique, Algorithmes proximaux et réseaux de neurones
+                            </span>
+                        </p>
+
+                        <p class="conference-speakers">
+                            <strong>👩‍🏫 <span data-fr="Intervenants" data-en="Speakers">Intervenants</span>:</strong> 
+                            <span data-fr="Antoine Godichon-Baggioni (Sorbonne Université, Paris), Nelly Pustelnik (ENS Lyon)" 
+                                  data-en="Antoine Godichon-Baggioni (Sorbonne University, Paris), Nelly Pustelnik (ENS Lyon)">
+                                Antoine Godichon-Baggioni (Sorbonne Université, Paris), Nelly Pustelnik (ENS Lyon)
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Carte 2 : MATHELEPH Workshop -->
+                <div class="conference-card">
+                    <div class="conference-header">
+                        <div class="conference-icon">🎤</div>
+                        <div>
+                            <h3>MATHELEPH Workshop</h3>
+                            <p class="conference-date">26 - 28 Mai 2025</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conference-body">
+                        <p class="conference-location">
+                            <strong>📍 <span data-fr="Lieu" data-en="Location">Lieu</span>:</strong> 
+                            <span data-fr="MIO (Mediterranean Institute of Oceanography), Marseille" data-en="MIO (Mediterranean Institute of Oceanography), Marseille">
+                                MIO (Mediterranean Institute of Oceanography), Marseille
+                            </span>
+                        </p>
+                        
+                        <p class="conference-type">
+                            <strong>🎯 <span data-fr="Type" data-en="Type">Type</span>:</strong> 
+                            <span data-fr="Workshop de recherche" data-en="Research Workshop">Workshop de recherche</span>
+                        </p>
+                        
+                        <p class="conference-presentation">
+                            <strong>📊 <span data-fr="Présentation" data-en="Presentation">Présentation</span>:</strong> 
+                            <span data-fr="Présentation de mon stage de recherche" data-en="Research internship presentation">
+                                Présentation de mon stage de recherche
+                            </span>
+                        </p>
+                        
+                        <div class="conference-links">
+                            <a href="pdf/matheleph.pdf" target="_blank" rel="noopener noreferrer" class="conference-link">
+                                <span data-fr="📄 Présentation" data-en="📄 Slides">📄 Slides</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

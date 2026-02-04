@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
+                <li><a href="teaching.html" data-fr="Enseignement" data-en="Teaching">Enseignement</a></li>
+                <li><a href="publications.html" data-fr="Publications" data-en="Publications">Publications</a></li>
+                <li><a href="conferences.html" data-fr="Conférences" data-en="Conferences">Conférences</a></li>
+                <li><a href="research.html" data-fr="Recherche" data-en="Research">Recherche</a></li>
+                <li><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="language-toggle" onclick="toggleLanguage()" id="langToggle">🇬🇧 EN</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Research Section -->
+    <section id="recherche" class="section">
+        <div class="container">
+            <h2 class="section-title" data-fr="Recherche & Projets" data-en="Research & Projects">Recherche & Projets</h2>
+            
+            <div class="research-grid">
+                <div class="research-card">
+                    <h3 data-fr="Thèse de doctorat" data-en="PhD Thesis">PhD Thesis</h3>
+                    <p data-fr="Développement de nouveaux modèles statistiques pour l'analyse de données fonctionnelles, motivés par des applications en océanographie. L'objectif est de proposer des méthodes innovantes pour traiter des données partielles ou complexes et explorer leurs structures sous-jacentes."
+                        data-en="Development of new statistical models for the analysis of functional data, motivated by applications in oceanography. The aim is to provide innovative methods to handle partial or complex data and explore their underlying structures.">
+                        Development of new statistical models for the analysis of functional data, motivated by applications in oceanography.
+                    </p>
+                    <div class="research-links">
+                        <a href="https://github.com/kpdovodji" class="research-link">GitHub</a>
+                        <a href="#" class="research-link" data-fr="Article" data-en="Paper">Paper</a>
+                    </div>
+                </div>
+
+                <div class="research-card">                     
+                    <h3 data-fr="Mémoire M2 - UMLP" data-en="Master's Thesis - UMLP">Master's Thesis - UMLP</h3>                     
+                    <p data-fr="Approximation statistique des courants océaniques : développement d'une méthode pour estimer des champs vectoriels partiellement observés en résumant leur vitesse, direction et flux global."
+                        data-en="Statistical approximation of ocean currents: development of a method to estimate partially observed vector fields by summarizing their speed, direction, and overall flow patterns.">
+                        Statistical approximation of ocean currents: development of a method to estimate partially observed vector fields.
+                    </p>
+                    <div class="research-links">                         
+                        <a href="pdf/memoire_M2_UMLP.pdf" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Mémoire" data-en="Thesis">Thesis</a>
+                        <a href="pdf/presentation_M2_UMLP.pdf" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Présentation" data-en="Slides">Slides</a>
+                        <a href="https://drive.google.com/drive/folders/1_H5wNXlIJtmG6-GuEGUjaK9GgRynpgtW?usp=sharing" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Code" data-en="Code">Code</a>                     
+                    </div>                 
+                </div>
+                
+                <div class="research-card">
+                    <h3 data-fr="Mémoire Master 2 - UBS" data-en="Master's Thesis - UBS">Master's Thesis - UBS</h3>
+                    <p data-fr="Segmentation perceptuelle d'images : combiner modèles probabilistes et méthodes d'apprentissage. Développement d'une méthode combinant modèles de mélanges probabilistes et réseaux de neurones." data-en="Perceptual image segmentation: combining probabilistic models and learning methods. Development of a method combining probabilistic mixture models and neural networks.">Perceptual image segmentation: combining probabilistic models and learning methods.</p>
+                    <div class="research-links">
+                        <a href="pdf/memoire_M2_UBS.pdf" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Mémoire" data-en="Thesis">Thesis</a>
+                        <a href="pdf/presentation_M2_UBS.pdf" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Présentation" data-en="Slides">Slides</a>
+                        <a href="https://drive.google.com/drive/folders/1AAhEHSAvjx9LVXHEJnbrvVfd7lge3psa?usp=drive_link" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Code" data-en="Code">Code</a>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <h3 data-fr="Stage Master 1" data-en="Master's Internship">Master's Internship</h3>
+                    <p data-fr="Analyse de données à L'Atelier de Francisco, Besançon. Gestion des données manquantes, analyse de la satisfaction client, prévision des réservations avec méthodes statistiques avancées." data-en="Data analysis at L'Atelier de Francisco, Besançon. Missing data management, customer satisfaction analysis, reservation forecasting with advanced statistical methods.">Data analysis at L'Atelier de Francisco, Besançon. Missing data management, customer satisfaction analysis.</p>
+                    <div class="research-links">
+                        <a href="https://github.com/kpdovodji/MesProjets/blob/main/Rapport_de_stage_M1.pdf" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Rapport" data-en="Report">Report</a>
+                        <a href="pdf/presentation_stage_M1.pdf" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Présentation" data-en="Slides">Slides</a>
+                        <a href="https://drive.google.com/drive/folders/1OowhRla5HcM80-CO3z-xhcoM47aUS4rL?usp=drive_link" target="_blank" rel="noopener noreferrer" class="research-link" data-fr="Code R" data-en="R Code">R Code</a>
+                    </div>
+                </div>
+                
+                <div class="research-card">
+                    <h3 data-fr="Projets GitHub" data-en="GitHub Projects">GitHub Projects</h3>
+                    <p data-fr="Collection de projets appliqués et lectures d'articles scientifiques reconnus pour leur qualité et rigueur par les enseignants. Travaux en statistiques, machine learning et data science." data-en="Collection of applied projects and scientific article reviews recognized for their quality and rigor by professors. Work in statistics, machine learning and data science.">Collection of applied projects and scientific article reviews recognized for their quality and rigor by professors.</p>
+                    <div class="research-links">
+                        <a href="https://github.com/kpdovodji" class="research-link">GitHub</a>
+                        <a href="#" class="research-link" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

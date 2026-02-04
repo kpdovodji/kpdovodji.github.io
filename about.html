@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
+                <li><a href="teaching.html" data-fr="Enseignement" data-en="Teaching">Enseignement</a></li>
+                <li><a href="publications.html" data-fr="Publications" data-en="Publications">Publications</a></li>
+                <li><a href="conferences.html" data-fr="Conférences" data-en="Conferences">Conférences</a></li>
+                <li><a href="research.html" data-fr="Recherche" data-en="Research">Recherche</a></li>
+                <li><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="language-toggle" onclick="toggleLanguage()" id="langToggle">🇬🇧 EN</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="apropos" class="section about">
+        <div class="container">
+            <h2 class="section-title" data-fr="À propos" data-en="About">À propos</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-fr="En tant que doctorant en mathématiques, je me passionne pour l'exploration des concepts mathématiques complexes et leur application dans le domaine de l'informatique. Mon parcours académique m'a mené à développer une expertise approfondie dans plusieurs domaines mathématiques fondamentaux." data-en="As a PhD student in mathematics, I am passionate about exploring complex mathematical concepts and their application in computer science. My academic journey has led me to develop deep expertise in several fundamental mathematical domains.">En tant que doctorant en mathématiques, je me passionne pour l'exploration des concepts mathématiques complexes et leur application dans le domaine de l'informatique. Mon parcours académique m'a mené à développer une expertise approfondie dans plusieurs domaines mathématiques fondamentaux.</p>
+                    
+                    <p data-fr="Au-delà de mes recherches, j'apprécie particulièrement les moments d'équilibre que m'offrent mes loisirs. Les balades en nature me permettent de me ressourcer et de stimuler ma créativité, tandis que la lecture de romans nourrit mon imagination. Je maintiens également une veille scientifique active à travers la lecture d'articles de recherche et je reste connecté à l'actualité mondiale via les journaux télévisés." data-en="Beyond my research, I particularly appreciate the moments of balance that my hobbies provide. Nature walks allow me to recharge and stimulate my creativity, while reading novels nourishes my imagination. I also maintain active scientific monitoring through reading research articles and stay connected to world news via television broadcasts.">Au-delà de mes recherches, j'apprécie particulièrement les moments d'équilibre que m'offrent mes loisirs. Les balades en nature me permettent de me ressourcer et de stimuler ma créativité, tandis que la lecture de romans nourrit mon imagination. Je maintiens également une veille scientifique active à travers la lecture d'articles de recherche et je reste connecté à l'actualité mondiale via les journaux télévisés.</p>
+                </div>
+                
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🌊</div>
+                        <div>
+                            <strong data-fr="Recherche doctorale" data-en="PhD Research">PhD Research</strong><br>
+                            <span data-fr="Modèles statistiques pour reconstituer les courants marins à partir de données partielles et analyse des trajectoires d'éléphants de mer." 
+                                data-en="Statistical models to reconstruct ocean currents from partial data and analysis of elephant seal trajectories.">
+                                Statistical models to reconstruct ocean currents from partial data and analysis of elephant seal trajectories. 
+                            </span>
+                            <a href="https://theses.fr/s419847" target="_blank" rel="noopener noreferrer"
+                                data-fr="Résumé" data-en="Abstract">
+                                    Abstract
+                            </a><br>
+
+                            <strong data-fr="Directeurs de thèse" data-en="Supervisors">Supervisors</strong><br>
+                            <ul>
+                                <li>
+                                    <a href="https://cardot.perso.math.cnrs.fr/students.html" target="_blank" rel="noopener noreferrer">
+                                        Herve CARDOT</a> (IMB, Université de Bourgogne)
+                                </li>
+                                <li>
+                                    <a href="https://people.mio.osupytheas.fr/nerini.david/contact.html" target="_blank" rel="noopener noreferrer">
+                                        David NERINI</a> (MIO, Marseille)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🎓</div>
+                        <div>
+                            <strong data-fr="Formation académique" data-en="Academic Background">Academic Background</strong><br>
+                            <span data-fr="Master Ingénierie Mathématique, Master Modélisation Statistique, Licence Mathématiques Fondamentales"
+                                data-en="Master's in Mathematical Engineering , Master's in Statistical Modeling, Bachelor's in Fundamental Mathematics">
+                                Master's in Mathematical Engineering, Master's in Statistical Modeling, Bachelor's in Fundamental Mathematics
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">💻</div>
+                        <div>
+                            <strong data-fr="Compétences techniques" data-en="Technical Skills">Technical Skills</strong><br>
+                            <span data-fr="Statistiques, data science, machine learning, programmation, web et visualisation" 
+                                data-en="Statistics, data science, machine learning, programming, web & visualization">
+                                Statistics, data science, machine learning, programming, web & visualization
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🌟</div>
+                        <div>
+                            <strong data-fr="Savoir-être" data-en="Soft Skills">Soft Skills</strong><br>
+                            <span data-fr="Autonome, Rigoureux, Organisé, Agile et Curieux" data-en="Autonomous, Rigorous, Organized, Agile, and Curious">Autonomous, Rigorous, Organized, Agile, and Curious</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
+                <li><a href="teaching.html" data-fr="Enseignement" data-en="Teaching">Enseignement</a></li>
+                <li><a href="publications.html" data-fr="Publications" data-en="Publications">Publications</a></li>
+                <li><a href="conferences.html" data-fr="Conférences" data-en="Conferences">Conférences</a></li>
+                <li><a href="research.html" data-fr="Recherche" data-en="Research">Recherche</a></li>
+                <li><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="language-toggle" onclick="toggleLanguage()" id="langToggle">🇬🇧 EN</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;" data-fr="Contactez-moi" data-en="Get in Touch">Contactez-moi</h2>
+            
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3 data-fr="Envoyez-moi un message" data-en="Send me a message">Envoyez-moi un message</h3>
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="nom" data-fr="Nom complet" data-en="Full Name">Nom complet</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" data-fr="Message" data-en="Message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" data-fr="Envoyer le message" data-en="Send message">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

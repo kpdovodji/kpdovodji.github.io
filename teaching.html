@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enseignement - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
+                <li><a href="teaching.html" data-fr="Enseignement" data-en="Teaching">Enseignement</a></li>
+                <li><a href="publications.html" data-fr="Publications" data-en="Publications">Publications</a></li>
+                <li><a href="conferences.html" data-fr="Conférences" data-en="Conferences">Conférences</a></li>
+                <li><a href="research.html" data-fr="Recherche" data-en="Research">Recherche</a></li>
+                <li><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="language-toggle" onclick="toggleLanguage()" id="langToggle">🇬🇧 EN</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Teaching Section -->
+    <section id="enseignement" class="section">
+        <div class="container">
+            <h2 class="section-title" data-fr="Enseignement" data-en="Teaching">Enseignement</h2>
+            
+            <div class="teaching-intro">
+                <p data-fr="Dans le cadre de mon doctorat, j'assure des travaux dirigés (TD) en statistiques et mathématiques pour différents niveaux universitaires." 
+                   data-en="As part of my PhD, I teach tutorial sessions (TD) in statistics and mathematics for various undergraduate levels.">
+                   Dans le cadre de mon doctorat, j'assure des travaux dirigés (TD) en statistiques et mathématiques pour différents niveaux universitaires.
+                </p>
+            </div>
+
+            <div class="teaching-table-container">
+                <table class="teaching-table">
+                    <thead>
+                        <tr>
+                            <th data-fr="Année" data-en="Year">Année</th>
+                            <th data-fr="Niveau" data-en="Level">Niveau</th>
+                            <th data-fr="Filière" data-en="Program">Filière</th>
+                            <th data-fr="Volume horaire" data-en="Hours">Volume horaire</th>
+                            <th data-fr="Matière & Contenu" data-en="Subject & Content">Matière & Contenu</th>
+                            <th data-fr="Lien vers les cours" data-en="Course Links">Lien vers les cours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2">2025-2026</td>
+                            <td><strong>L1</strong></td>
+                            <td data-fr="Psychologie" data-en="Psychology">Psychologie</td>
+                            <td>40h TD</td>
+                            <td>
+                                <strong data-fr="Statistiques descriptives" data-en="Descriptive Statistics">Statistiques descriptives</strong>
+                                <ul>
+                                    <li data-fr="Statistiques univariées et bivariées" data-en="Univariate and divariate statistics">Statistiques univariées et bivariées </li>
+                                    <li data-fr="Probabilités" data-en="Probabilities">Probabilités</li>
+                                    <li data-fr="Intervalles de confiance" data-en="Confidence intervals">Intervalles de confiance</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <a href="#" target="_blank">TD</a> |
+                                    <a href="#" target="_blank">Cours</a>
+                                </ul>
+                                
+                                <ul>
+                                    <a href="#" target="_blank"> CC1</a> |
+                                    <a href="#" target="_blank">CC2</a>|
+                                    <a href="#" target="_blank">CC3</a> |
+                                    <a href="#" target="_blank">CF</a>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>L2</strong></td>
+                            <td data-fr="Économie" data-en="Economics">Économie</td>
+                            <td>24h TD</td>
+                            <td>
+                                <strong data-fr="Mathématiques" data-en="Mathematics">Mathématiques</strong>
+                                <ul>
+                                    <li data-fr="Compléments d'algèbre linéaire" data-en="Advanced linear algebra">Compléments d'algèbre linéaire</li>
+                                    <li data-fr="Intégrales généralisées" data-en="Improper integrals">Intégrales généralisées</li>
+                                    <li data-fr="Optimisation" data-en="Optimization">Optimisation</li>
+                                    <li data-fr="Résolution approchée d'une équation" data-en="Approximate equation solving">Résolution approchée d'une équation</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li> 
+                                        <a href="#" target="_blank">TD</a> |
+                                        <a href="#" target="_blank">Cours</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">CC1</a> |
+                                        <a href="#" target="_blank">CC2</a>|
+                                        <a href="#" target="_blank">CF</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="container">
+            <h3 class="subsection-title" 
+            data-fr="Encadrement pédagogique & médiation scientifique" 
+            data-en="Pedagogical supervision & science outreach">
+            Encadrement pédagogique & médiation scientifique
+            </h3>
+
+            <div class="teaching-table-container">
+            <table class="teaching-table">
+                <thead>
+                    <tr>
+                        <th data-fr="Année" data-en="Year">Année</th>
+                        <th data-fr="Dispositif" data-en="Program">Dispositif</th>
+                        <th data-fr="Établissement" data-en="Institution">Établissement</th>
+                        <th data-fr="Public" data-en="Audience">Public</th>
+                        <th data-fr="Rôle & Activités" data-en="Role & Activities">Rôle & Activités</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025–2026</td>
+                        <td>Maths en Jeans</td>
+                        <td data-fr="Collège de Montbart" data-en="Montbart Middle School">
+                            Collège de Montbart
+                        </td>
+                        <td data-fr="Collégiens" data-en="Middle school students">
+                            Collégiens
+                        </td>
+                        <td>
+                            <ul>
+                                <li data-fr="Encadrement de projets de recherche en mathématiques"
+                                    data-en="Supervision of mathematical research projects">
+                                    Encadrement de projets de recherche en mathématiques
+                                </li>
+                                <li data-fr="Accompagnement des élèves dans la démarche scientifique"
+                                    data-en="Guidance in scientific reasoning and methodology">
+                                    Accompagnement des élèves dans la démarche scientifique
+                                </li>
+                                <li data-fr="Préparation à la restitution orale des travaux"
+                                    data-en="Preparation for oral presentation of results">
+                                    Préparation à la restitution orale des travaux
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
