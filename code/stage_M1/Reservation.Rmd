@@ -1,0 +1,437 @@
+---
+title: "Reservation"
+output: pdf_document
+date: "2024-05-15"
+---
+
+
+\newpage
+## Résumé
+
+Ce rapport de stage se concentre sur l'analyse des réservations clients et la prédiction des réservations dans le cadre de mon stage chez *L'atelier de Francisco*, un restaurant réputé. L'objectif principal était d'explorer en profondeur la base de données des réservations afin d'optimiser la planification des tables et d'améliorer l'expérience client. Des méthodes d'analyse de données avancées ont été utilisées pour identifier les tendances de réservation et développer des modèles de prédiction.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Importion de packages
+
+```{r}
+# Chargement des packages nécessaires
+if (!require(pacman)) install.packages("pacman")
+pacman::p_load(pacman, readr, dplyr, lubridate, tseries, forecast, ggplot2, plotly, lmtest, readxl, corrplot)
+```
+
+## Données
+
+La base de données Reservation est une série temporelle classique qui représente le nombre de reservation par jour dans le restaurant.
+
+La base de données contient les colonnes suivantes :
+
+-   Jour : La date (jour, mois et année) de chaque observation.
+-   Couverts : Le nombre de clients.
+-   Service : Type de service (Déjeuner ou Dîner)
+-   Taux de remplissage : Taux de remplissage du restaurent
+
+Les données de la base couvrent la période de novembre 2023 à avril 2024, soit 6 mois de données mensuelles.
+
+```{r pressure, echo=FALSE}
+#Importer les données
+df <- read_excel("reservation.xlsx")
+#df <- reservation
+# Afficher les premières lignes de la base de données pour vérifier
+head(df)
+```
+
+```{r , echo=FALSE}
+#changement des nom des variables
+colnames(df) <- c("jour","service","couverts", "taux")
+```
+
+```{r , echo=FALSE}
+ # Afficher la structure du dataframe pour voir les types de données
+str(df)
+
+#Changement de la servive en 0 et 1 avec 0 = Déjeuner et 1 = Dîner
+#df$service <- ifelse(df$service == "Déjeuner", 0, 1)
+
+#Conversion des donnees
+df$jour <- as.Date(df$jour)
+df$service <- as.factor(df$service)
+df$couverts <- as.numeric(df$couverts)
+df$taux <- as.numeric(df$taux)
+```
+
+##Statistique descriptive
+
+# Resumé statistique
+
+```{r , echo=FALSE}
+# Afficher un résumé des statistiques descriptives
+summary(df)
+```
+
+# Analyse des services
+
+```{r , echo=FALSE}
+# Afficher un résumé statistique par service
+summary_by_service <- df%>%
+  group_by(service) %>%
+  summarise(
+   couverts = mean(couverts),
+    Moyenne_Taux_de_remplissage = mean(taux)
+  )
+print(summary_by_service) 
+```
+
+```{r, echo=FALSE}
+ # Tracer un graphique de répartition des taux de remplissage par service
+ggplot(summary_by_service, aes(x = service, y = Moyenne_Taux_de_remplissage)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Répartition des taux de remplissage par service", x = "Service", y = " Taux de remplissage moyen") + 
+  theme(axis.title = )
+```
+
+```{r, echo=FALSE}
+# Tracer un graphique de répartition des couverts par service
+p2 <- ggplot(summary_by_service, aes(x = service, y = couverts)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Répartition des couverts par service", x = "Service", y = "Couverts" )
+ggplotly(p2)
+```
+
+# Analyse des reservation par jour de la semaine
+
+```{r, echo=FALSE}
+ # Regrouper les données par jour et calculer la somme des autres variables
+summary_by_week <- df %>%
+  mutate(jour_week = wday(jour, label = TRUE, abbr = FALSE)) %>%
+  group_by(jour_week, service) %>%
+  summarise(
+    couverts_moyen = mean(couverts, na.rm = TRUE),
+    taux_remplissage_moyen = mean(taux, na.rm = TRUE)
+  )
+
+# Afficher les premières lignes du résumé 
+summary(summary_by_week)
+print(summary_by_week)
+```
+
+```{r}
+ p0 <- ggplot(summary_by_week, aes(x = jour_week, y = couverts_moyen, fill = service)) +
+  geom_bar(stat = "identity", position = 'dodge') +
+  labs(title = "Nombre moyen de couverts par jour de la semaine", x = "Jour", y = "Couverts")
+ggplotly(p0)
+
+```
+
+#Analyse des réservation par mois
+
+```{r}
+
+summary_by_month <- df %>%
+  group_by(mois = floor_date(jour, "month"), service) %>%
+  summarise(
+    couverts = mean(couverts),
+    taux_remplissage_moyen = mean(taux)
+  )
+print(summary_by_month)
+# Tracer les couverts par mois
+ggplot(summary_by_month, aes(x = mois, y = couverts, fill = service)) +
+  geom_bar(stat = "identity",  position = 'dodge') +
+  #geom_line() +
+  labs(title = "Nombre total de couverts par mois", x = "Mois", y = " Couverts")
+
+```
+
+```{r}
+ # Regrouper les données par jour du mois
+summary_by_month_day <- df %>%
+  mutate(jour_month_day = day(jour)) %>%
+  group_by(jour_month_day, service) %>%
+  summarise(
+    couverts_moyen = mean(couverts, na.rm = TRUE),
+    taux_remplissage_moyen = mean(taux, na.rm = TRUE)
+  )
+# Afficher les premières lignes du résumé quotidien
+summary(summary_by_month_day)
+```
+
+```{r}
+p4 <- ggplot(summary_by_month_day, aes(x = jour_month_day, couverts_moyen, fill = service)) +
+  geom_bar(stat = 'identity',position = "dodge") +
+  labs(title = "Repartition des couverts en des jour du mois", x = "Jour", y = "Moyenne_Couverts")
+
+# Afficher le graphique
+ggplotly(p4)
+```
+
+
+## Modele de regression linéaire
+
+```{r}
+df_reg <- df[,-4]
+#Changement de la servive en 0 et 1 avec 0 = Déjeuner et 1 = Dîner
+#df_reg$service <- ifelse(df_reg$service == "Déjeuner", 0, 1)
+df_reg$service <- as.factor(df_reg$service)
+
+# Tracer un graphique de répartition des couverts par service
+
+p5 <- ggplot(df_reg, aes(x = service, y = couverts)) +
+  geom_boxplot() +
+  labs(title = "Répartition des couverts par service") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p5)
+
+```
+
+
+
+
+```{r}
+p4 <- ggplot(summary_by_month_day, aes(x = jour_month_day, couverts_moyen, fill = service)) +
+  geom_bar(stat = 'identity',position = "dodge") +
+  labs(title = "Repartition des couverts en des jour du mois", x = "Jour", y = "Total Couverts")
+
+# Afficher le graphique
+ggplotly(p4)
+```
+
+
+## Modele de regression linéaire
+
+```{r}
+
+p7 <- ggplot(df_reg, aes(x = jour, y = couverts)) +
+  geom_smooth(color = "blue") +
+  theme_minimal() +
+  labs(title = "Évolution du nombre de reservation", x = "Temps", y = "Nombre de réservation") +
+  scale_x_date(date_labels = "%Y-%m", date_breaks = "1 year") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Convertir en graphique plotly pour l'interactivité
+ggplotly(p7)
+```
+
+```{r }
+# Modèle de régression linéaire
+model <- lm(couverts ~., data = df_reg)
+summary(model) 
+
+# Visualiser les prédictions
+df_reg$predictions <- predict(model, newdata = df_reg)
+
+p6 <- ggplot(df_reg, aes(x = jour)) +
+  geom_line(aes(y = couverts), color = "blue") +
+  geom_line(aes(y = predictions), color = "red") +
+  labs(title = "Régression linéaire des couverts par jour", x = "Jour", y = "Total Couverts")
+
+aic <- AIC(model)
+
+ggplotly(p6)
+```
+```{r }
+# Modèle de régression linéaire
+df_decomp <- df %>% 
+  mutate(
+    jours  = as.factor(day(jour)),
+    mois = as.factor(month(jour)),
+    annee = as.factor(year(jour)),
+    week1 = week(jour)
+  ) %>% 
+  select(-taux)
+
+#df_decomp <- df_decomp %>% select(-jour)
+
+model1 <- lm(couverts ~., data = df_decomp)
+summary(model1) 
+
+# Visualiser les prédictions
+df_decomp$predictions <- predict(model1, newdata = df_decomp)
+
+#p7 <- ggplot(df_decomp, aes(x = jour)) +
+  #geom_line(aes(y = couverts), color = "blue") +
+ # geom_line(aes(y = predictions), color = "red") 
+ # labs(title = "Régression linéaire des couverts par jour", x = "Jour", y = "Total Couverts")
+
+aic1 <- AIC(model1)
+
+#ggplotly(p7)
+```
+```{r}
+
+df_decomp <- df %>% 
+  mutate(
+    jours  = as.factor(day(jour)),
+    mois = as.factor(month(jour)),
+    annee = as.factor(year(jour)),
+    week1 = as.factor(week(jour))
+  ) %>% 
+  select(-taux)
+
+# Création du tableau de contingence
+table_contingence <- table(df_decomp$week1, df_decomp$mois)
+
+library(FactoMineR)
+# Réalisation de l'AFC
+afc_result <- CA(table_contingence, graph = TRUE)
+
+# Affichage des résultats de l'AFC
+print(afc_result)
+```
+
+# Model Arima
+
+# Étape 1: Identification
+
+## Analyse de l'évolution de la série
+
+```{r}
+data <- df %>%
+  group_by(jour) %>%
+  summarise(couverts  = sum(couverts))
+
+
+p <- ggplot(data, aes(x = jour, y = couverts)) +
+  geom_line(color = "blue") +
+  theme_minimal() +
+  labs(title = "Évolution du nombre de reservation", x = "Temps", y = "Nombre de réservation") +
+  scale_x_date(date_labels = "%Y-%m", date_breaks = "1 year") +
+  theme(plot.title = element_text( hjust = 0.5))
+
+# Convertir en graphique plotly pour l'interactivité
+ggplotly(p)
+
+```
+
+## ACF et PACF
+
+```{r}
+# Création de la série temporelle avec des valeurs manquantes pour les dimanches
+ts_data <- ts(data$couverts, frequency = 365, start = c(year(min(data$jour)), 1), end = c(year(max(data$jour)), 365))
+
+# Décomposer la série temporelle avec des valeurs manquantes
+#decomposed_ts <- decompose(ts_data_with_missing)
+
+plot(decompose(ts_data)) # Décomposition de la série temporelle
+```
+
+```{r}
+# Calculer et afficher l'ACF
+acf(ts_data, main = "Autocorrelation Function")
+
+# Calculer et afficher la PACF
+pacf(ts_data, main = "Partial Autocorrelation Function")
+
+## Test de stationnarité et différenciation
+adf_test_result <- adf.test(ts_data, k = 12)
+adf_test_result
+
+# Différencier la série temporelle
+diff_ts_data <- diff(ts_data)
+plot(diff_ts_data, main = "Série temporelle différenciée", xlab = "Temps", ylab = "Différence")
+```
+
+```{r}
+# Calculer et afficher l'ACF de la série différenciée
+acf(diff_ts_data, main = "Autocorrelation Function (ACF)")
+
+# Calculer et afficher la PACF de la série différenciée
+pacf(diff_ts_data, main = "Partial Autocorrelation Function (PACF)")
+
+# Effectuer le test de Dickey-Fuller augmenté sur la série différenciée
+adf_test_result <- adf.test(diff_ts_data, k = 12)
+
+## Analyse de l'ordre p et q
+pacf(diff_ts_data, lag.max = 15, main = "Partial Autocorrelation Function (PACF)")
+acf(diff_ts_data, lag.max = 15, main = "Autocorrelation Function (ACF)")
+```
+
+# Étae 2: Estimation
+
+```{r}
+#mod <- arima(ts_data, order = c(5,1,5))
+
+## Utiliser auto.arima pour trouver le meilleur modèle ARIMA
+model <- auto.arima(ts_data)
+summary(model)
+```
+
+```{r}
+## Ajuster un modèle ARIMA avec des ordres spécifiés
+fit <- arima(ts_data, order = c(2, 1, 1))
+summary(fit)
+```
+
+# Étape 3: Validation
+
+```{r}
+## Calculer les résidus
+residuals <- residuals(fit)
+```
+
+## Test de Ljung-Box
+
+```{r}
+ljung_box_results <- data.frame(Order = integer(), Test_Statistic = numeric(), P_Value = numeric())
+
+for (i in 1:12) {
+  test_result <- Box.test(residuals, lag = i, type = "Ljung-Box")
+  ljung_box_results <- rbind(ljung_box_results, data.frame(Order = i, Test_Statistic = test_result$statistic, P_Value = test_result$p.value))
+}
+ljung_box_results
+```
+
+## Test de normalité (Test de Shapiro-Wilk)
+
+```{r}
+qqnorm(residuals)
+qqline(residuals)
+shapiro.test(residuals)
+
+# Tracer les résidus
+plot(residuals, main = "Residuals")
+
+# ACF et PACF des résidus
+acf(residuals, main = "ACF of Residuals")
+pacf(residuals, main = "PACF of Residuals")
+```
+
+# Étape 4: Prédiction
+
+```{r}
+## Effectuer des prévisions pour les 24 périodes suivantes avec le modèle ARIMA
+fore <- forecast(model, h = 24)
+
+## Calculer les intervalles de prédiction supérieur (U) et inférieur (L)
+U <- fore$upper[, "95%"] # Intervalle de prédiction supérieur à 95%
+L <- fore$lower[, "95%"] # Intervalle de prédiction inférieur à 95%
+
+# Tracer les données observées et les prévisions
+ts.plot(ts_data, fore$mean, U, L, col = c(1, 2, 4, 4), lty = c(1, 1, 2, 2))
+
+# Ajouter une légende sur le graphique
+legend("topleft", c("Données observées", "Prédictions", "Intervalles de prédiction (95%)"), col = c(1, 2, 4), lty = c(1, 1, 2))
+```
+
+```{r}
+ 
+```
+
+```{r }
+ 
+```
+
+```{r}
+ 
+```
+
+```{r}
+ 
+```
+
+```{r}
+ 
+```
+
