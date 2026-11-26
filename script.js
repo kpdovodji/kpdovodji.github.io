@@ -276,7 +276,7 @@
     var hero = '<section class="card hero-card" aria-labelledby="hero-name">' +
       '<canvas class="hero-canvas" aria-hidden="true"></canvas>' +
       '<div class="hero-grid">' +
-      '<div class="hero-photo"><img src="' + esc(P.photo) + '" alt="' + esc(t(UI.photoAlt)) + '" width="240" height="260" ' +
+      '<div class="hero-photo"><img src="' + esc(P.photo) + '" alt="' + esc(t(UI.photoAlt)) + '" width="240" height="300" ' +
       "onerror=\"this.parentNode.parentNode.classList.add('no-photo');this.parentNode.remove()\"></div>" +
       '<div class="hero-text">' +
       '<h1 id="hero-name">' + esc(P.name) + "</h1>" +
