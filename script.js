@@ -105,25 +105,50 @@
     return S.talks.slice().sort(function (a, b) { return a.start < b.start ? 1 : -1; });
   }
 
+  /* ---------- Icônes (dessinées à la main, trait de la couleur du texte) ---------- */
+
+  var ICON_PATHS = {
+    doc: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+    book: '<path d="M4 4.5h10.5A3.5 3.5 0 0 1 18 8v12H7.5A3.5 3.5 0 0 1 4 16.5z"/><path d="M4 16.5A3.5 3.5 0 0 1 7.5 13H18"/>',
+    person: '<circle cx="12" cy="8" r="3.6"/><path d="M4.8 20.5a7.2 7.2 0 0 1 14.4 0"/>',
+    code: '<path d="M8.5 7.5 4 12l4.5 4.5M15.5 7.5 20 12l-4.5 4.5M13.6 5.5l-3.2 13"/>',
+    wave: '<path d="M2.5 9.5c3.2-4.6 6.3-4.6 9.5 0s6.3 4.6 9.5 0"/><path d="M2.5 16c3.2-4.6 6.3-4.6 9.5 0s6.3 4.6 9.5 0"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2.2"/><path d="m3.5 7 8.5 6 8.5-6"/>',
+    moon: '<path d="M20 14.6A8.2 8.2 0 0 1 9.4 4 8.2 8.2 0 1 0 20 14.6z"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>',
+    menu: '<path d="M4 7h16M4 12h16M4 17h16"/>'
+  };
+
+  function icon(name) {
+    return '<svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + ICON_PATHS[name] + "</svg>";
+  }
+
+  // Même dessin que favicon.svg : une trace satellitaire sur une courbe de niveau
+  var BRAND_MARK = '<svg class="brand-mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#0F2C44"/><path d="M5 22c6-1 8-9 13-9s6 6 9 5" fill="none" stroke="#7CC6CF" stroke-width="2" stroke-linecap="round"/><g fill="#F2B33D"><circle cx="9" cy="27" r="1.6"/><circle cx="12" cy="20" r="1.6"/><circle cx="15" cy="13" r="1.6"/><circle cx="18" cy="6" r="1.6"/></g></svg>';
+
+  function isDark() { return document.documentElement.classList.contains("dark"); }
+
   /* ---------- Textes de l'interface ---------- */
 
   var UI = {
     nav: [
-      { id: "home", href: "index.html", label: { en: "Home", fr: "Accueil" } },
+      { id: "home", href: "index.html", label: { en: "About", fr: "Accueil" } },
       { id: "cv", href: "cv.html", label: { en: "CV", fr: "CV" } },
       { id: "research", href: "research.html", label: { en: "Research", fr: "Recherche" } },
       { id: "publications", href: "publications.html", label: { en: "Publications", fr: "Publications" } },
+      { id: "software", href: "software.html", label: { en: "Software", fr: "Logiciels" } },
       { id: "talks", href: "conferences.html", label: { en: "Talks", fr: "Conférences" } },
       { id: "teaching", href: "teaching.html", label: { en: "Teaching", fr: "Enseignement" } },
       { id: "contact", href: "contact.html", label: { en: "Contact", fr: "Contact" } }
     ],
     skip: { en: "Skip to content", fr: "Aller au contenu" },
     menu: { en: "Menu", fr: "Menu" },
-    langButton: { en: "Français", fr: "English" },
+    langButton: { en: "FR", fr: "EN" },
     langLabel: { en: "Afficher le site en français", fr: "Show the site in English" },
-    viewCV: { en: "View my CV", fr: "Voir mon CV" },
+    darkLabel: { en: "Dark mode", fr: "Mode sombre" },
     seeResearch: { en: "My research", fr: "Ma recherche" },
-    about: { en: "About", fr: "À propos" },
+    about: { en: "Short bio", fr: "Présentation" },
+    topics: { en: "Research topics", fr: "Thèmes de recherche" },
     inBrief: { en: "Research in brief", fr: "Ma recherche en bref" },
     latest: { en: "Recent and upcoming", fr: "Récemment et à venir" },
     allTalks: { en: "All talks and conferences", fr: "Toutes les conférences" },
@@ -138,6 +163,7 @@
       seminar: { en: "Seminar", fr: "Séminaire" },
       school: { en: "School", fr: "École" }
     },
+    footerRole: { en: "PhD student at IMB, Université Bourgogne Europe", fr: "doctorant à l'IMB, Université Bourgogne Europe" },
     updated: { en: "Last updated", fr: "Dernière mise à jour" },
     photoAlt: { en: "Portrait of Pierre Dovodji", fr: "Portrait de Pierre Dovodji" },
     pages: {
@@ -150,8 +176,12 @@
         title: { en: "Publications", fr: "Publications" },
         intro: { en: "Papers, theses and reports.", fr: "Articles, mémoires et rapports." }
       },
+      software: {
+        title: { en: "Software", fr: "Logiciels" },
+        intro: { en: "Code that comes out of my research.", fr: "Les codes issus de ma recherche." }
+      },
       talks: {
-        title: { en: "Talks and conferences", fr: "Conférences et exposés" },
+        title: { en: "Talks", fr: "Conférences" },
         intro: { en: "Events where I gave a talk or took part, most recent first.", fr: "Les événements où j'ai présenté mon travail ou auxquels j'ai participé, du plus récent au plus ancien." }
       },
       teaching: {
@@ -168,76 +198,100 @@
     }
   };
 
-  /* ---------- En-tête et pied de page ---------- */
+  // La page Software n'apparaît dans le menu que si S.software.show vaut true (voir data.js)
+  function navVisible(n) { return n.id !== "software" || (S.software && S.software.show); }
+
+  /* ---------- En-tête, pied de page, cartes ---------- */
+
+  function themeButtonInner() { return icon(isDark() ? "sun" : "moon"); }
 
   function renderHeader(page) {
-    var items = UI.nav.map(function (n) {
+    var items = UI.nav.filter(navVisible).map(function (n) {
       var cur = n.id === page ? ' aria-current="page"' : "";
       return '<li><a href="' + n.href + '"' + cur + ">" + esc(t(n.label)) + "</a></li>";
     }).join("");
     var other = lang === "en" ? "fr" : "en";
     return '<a class="skip-link" href="#app">' + esc(t(UI.skip)) + "</a>" +
       '<header class="site-header"><div class="wrap header-inner">' +
-      '<a class="wordmark" href="index.html">' + esc(S.person.name) + "</a>" +
-      '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">' + esc(t(UI.menu)) + "</button>" +
-      '<nav id="site-nav" class="site-nav" aria-label="Main"><ul>' + items + "</ul>" +
-      '<button class="lang-toggle" type="button" lang="' + other + '" aria-label="' + esc(t(UI.langLabel)) + '">' + esc(t(UI.langButton)) + "</button>" +
-      "</nav></div></header>";
+      '<a class="brand" href="index.html">' + BRAND_MARK + "<span>" + esc(S.person.name) + "</span></a>" +
+      '<nav id="site-nav" class="site-nav" aria-label="Main"><ul>' + items + "</ul></nav>" +
+      '<div class="header-tools">' +
+      '<button class="tool-btn lang-toggle" type="button" lang="' + other + '" aria-label="' + esc(t(UI.langLabel)) + '">' + esc(t(UI.langButton)) + "</button>" +
+      '<button class="tool-btn theme-toggle" type="button" aria-pressed="' + isDark() + '" aria-label="' + esc(t(UI.darkLabel)) + '">' + themeButtonInner() + "</button>" +
+      '<button class="tool-btn menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="' + esc(t(UI.menu)) + '">' + icon("menu") + "</button>" +
+      "</div></div></header>";
   }
 
   function renderFooter() {
-    return '<footer class="site-footer"><div class="wrap footer-inner">' +
-      "<p>" + esc(S.person.name) + "<br>" + esc(S.person.lab) + "</p>" +
-      '<p><a href="mailto:' + esc(email()) + '">' + esc(emailShown()) + "</a><br>" +
-      '<a href="https://github.com/' + esc(S.person.github) + '" target="_blank" rel="noopener">github.com/' + esc(S.person.github) + "</a></p>" +
-      '<p class="muted">' + esc(t(UI.updated)) + " " + esc(t(S.updated)) + "</p>" +
-      "</div></footer>";
+    return '<footer class="site-footer"><div class="wrap"><p>© ' + new Date().getFullYear() + " " + esc(S.person.name) + ", " +
+      esc(t(UI.footerRole)) + ". " + esc(t(UI.updated)) + " " + esc(t(S.updated)) + ".</p></div></footer>";
   }
 
   function pageHead(key) {
     var p = UI.pages[key];
-    return '<header class="page-head"><h1>' + esc(t(p.title)) + "</h1>" +
+    return '<header class="page-head"><div class="page-title"><h1>' + esc(t(p.title)) + '</h1><span class="title-rule" aria-hidden="true"></span></div>' +
       (p.intro ? '<p class="lede">' + esc(t(p.intro)) + "</p>" : "") + "</header>";
+  }
+
+  // Une section en carte, avec son titre (déjà en texte simple) et son contenu (HTML)
+  function card(id, title, body, cls) {
+    return '<section class="card' + (cls ? " " + cls : "") + '"' + (title ? ' aria-labelledby="' + id + '"' : "") + ">" +
+      (title ? '<h2 id="' + id + '">' + esc(title) + "</h2>" : "") + body + "</section>";
+  }
+
+  function button(href, iconName, label, cls) {
+    var ext = isExternal(href) ? ' target="_blank" rel="noopener"' : "";
+    return '<a class="btn ' + (cls || "btn-soft") + '" href="' + esc(href) + '"' + ext + ">" + icon(iconName) + "<span>" + esc(label) + "</span></a>";
   }
 
   /* ---------- Accueil ---------- */
 
   function renderHome() {
-    var bio = t(S.person.bio).map(function (para) {
+    var P = S.person;
+    var bio = '<p class="lead">' + esc(t(P.statement)) + "</p>" + t(P.bio).map(function (para) {
       return "<p>" + esc(para.replace("{year}", phdYearText())) + "</p>";
     }).join("");
 
-    var brief = S.research.brief.map(function (b) {
-      return "<div><dt>" + esc(t(b.term)) + "</dt><dd>" + esc(t(b.text)) + "</dd></div>";
-    }).join("");
+    var brief = '<ul class="dot-list">' + S.research.brief.map(function (b) {
+      return "<li><strong>" + esc(t(b.term)) + "</strong><span>" + esc(t(b.text)) + "</span></li>";
+    }).join("") + "</ul>";
 
-    var latest = sortedTalks().slice(0, 4).map(function (ev) {
+    var latest = '<ul class="dot-list">' + sortedTalks().slice(0, 4).map(function (ev) {
       var up = isUpcoming(ev) ? ' <span class="badge">' + esc(t(UI.upcoming)) + "</span>" : "";
-      return '<li><span class="when">' + esc(fmtRange(ev.start, ev.end)) + "</span>" +
-        '<span class="what">' + esc(t(ev.event)) + up + '<span class="where">' +
-        esc(t(UI.roles[ev.role])) + ", " + esc(t(ev.place)) + "</span></span></li>";
-    }).join("");
+      return "<li><strong>" + esc(t(ev.event)) + up + "</strong><span>" + esc(fmtRange(ev.start, ev.end)) + ", " +
+        esc(t(UI.roles[ev.role])).toLowerCase() + ", " + esc(t(ev.place)) + "</span></li>";
+    }).join("") + '</ul><p class="card-more"><a href="conferences.html">' + esc(t(UI.allTalks)) + "</a></p>";
 
-    return '<section class="hero" aria-labelledby="hero-name">' +
+    var chips = '<ul class="chips" aria-label="' + esc(t(UI.topics)) + '">' + t(P.chips).map(function (c) {
+      return '<li class="chip">' + esc(c) + "</li>";
+    }).join("") + "</ul>";
+
+    var actions = '<p class="hero-actions">' +
+      button("cv.html", "doc", "CV") +
+      button("publications.html", "book", t({ en: "Publications", fr: "Publications" })) +
+      (P.researchgate ? button(P.researchgate, "person", "ResearchGate") : "") +
+      button("https://github.com/" + P.github, "code", "GitHub") +
+      button("research.html", "wave", t(UI.seeResearch), "btn-primary") + "</p>";
+
+    var hero = '<section class="card hero-card" aria-labelledby="hero-name">' +
       '<canvas class="hero-canvas" aria-hidden="true"></canvas>' +
-      '<div class="wrap hero-inner"><div class="hero-text">' +
-      '<h1 id="hero-name">' + esc(S.person.name) + "</h1>" +
-      '<p class="hero-role">' + esc(t(S.person.role)) + ", " + esc(S.person.university) + ", Dijon</p>" +
-      '<p class="hero-statement">' + esc(t(S.person.statement)) + "</p>" +
-      '<p class="hero-actions"><a class="btn btn-primary" href="cv.html">' + esc(t(UI.viewCV)) + "</a>" +
-      '<a class="btn btn-ghost" href="research.html">' + esc(t(UI.seeResearch)) + "</a></p>" +
-      "</div></div>" +
-      "</section>" +
-      '<div class="wrap page">' +
-      '<section class="home-about" aria-labelledby="about-h">' +
-      '<img class="portrait" src="' + esc(S.person.photo) + '" alt="' + esc(t(UI.photoAlt)) + '" width="180" onerror="this.parentNode.classList.add(\'no-photo\');this.remove()">' +
-      '<div class="prose"><h2 id="about-h">' + esc(t(UI.about)) + "</h2>" + bio + "</div></section>" +
-      '<section class="home-brief" aria-labelledby="brief-h"><h2 id="brief-h">' + esc(t(UI.inBrief)) + "</h2>" +
-      '<dl class="brief">' + brief + "</dl></section>" +
-      '<section class="home-latest" aria-labelledby="latest-h"><h2 id="latest-h">' + esc(t(UI.latest)) + "</h2>" +
-      '<ul class="latest">' + latest + "</ul>" +
-      '<p><a class="more" href="conferences.html">' + esc(t(UI.allTalks)) + "</a></p></section>" +
-      "</div>";
+      '<div class="hero-grid">' +
+      '<div class="hero-photo"><img src="' + esc(P.photo) + '" alt="' + esc(t(UI.photoAlt)) + '" width="240" height="260" ' +
+      "onerror=\"this.parentNode.parentNode.classList.add('no-photo');this.parentNode.remove()\"></div>" +
+      '<div class="hero-text">' +
+      '<h1 id="hero-name">' + esc(P.name) + "</h1>" +
+      '<p class="hero-role">' + esc(t(P.role)) + "</p>" +
+      '<p class="hero-sub">' + esc(t(P.affiliation)) + "</p>" +
+      '<p class="hero-email-line"><a class="hero-email" href="mailto:' + esc(email()) + '">' + icon("mail") + '<span><span class="nw">' + esc(emailShown().split("@")[0]) + '</span><wbr><span class="nw">@' + esc(P.emailDomain) + "</span></span></a></p>" +
+      chips + actions +
+      "</div></div></section>";
+
+    return '<div class="wrap page page-home">' + hero +
+      card("about-h", t(UI.about), '<div class="prose">' + bio + "</div>") +
+      '<div class="card-pair">' +
+      card("brief-h", t(UI.inBrief), brief) +
+      card("latest-h", t(UI.latest), latest) +
+      "</div></div>";
   }
 
   /* ---------- CV ---------- */
@@ -355,57 +409,64 @@
 
   /* ---------- Recherche ---------- */
 
+  function entryRow(when, inner) {
+    return '<li class="entry"><span class="when">' + esc(when) + "</span><div>" + inner + "</div></li>";
+  }
+
   function renderResearch() {
     var th = S.research.thesis;
     var desc = t(th.description).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("");
-    var apps = th.applications.map(function (a) {
-      return '<div class="app"><h3>' + esc(t(a.title)) + "</h3><p>" + esc(t(a.text)) + "</p></div>";
-    }).join("");
-    var earlier = S.experience.map(function (e) {
-      return '<li class="entry"><span class="when">' + esc(t(e.when)) + '</span><div><h3>' + esc(t(e.title)) + "</h3>" +
-        '<p class="where">' + esc(t(e.where)) + "</p><p>" + esc(t(e.text)) + "</p>" + links(e.links) + "</div></li>";
-    }).join("");
-    var projectsTitle = { en: "GitHub projects", fr: "Projets GitHub" };
+    var apps = '<div class="mini-grid">' + th.applications.map(function (a) {
+      return '<div class="mini"><h3>' + esc(t(a.title)) + "</h3><p>" + esc(t(a.text)) + "</p></div>";
+    }).join("") + "</div>";
 
-    return '<div class="wrap page">' + pageHead("research") +
-      '<section class="thesis" aria-labelledby="thesis-h">' +
+    var thesis = '<section class="card card-glow thesis-card" aria-labelledby="thesis-h">' +
       '<p class="kicker">' + esc(t({ en: "PhD thesis", fr: "Thèse de doctorat" })) + ", " + esc(t(th.period)) + "</p>" +
       '<h2 id="thesis-h">' + esc(t(th.title)) + "</h2>" +
       '<p class="where">' + esc(t({ en: "Supervised by ", fr: "Sous la direction de " })) + esc(t(th.supervisors)) + "</p>" +
-      '<div class="prose">' + desc + "</div>" +
-      '<div class="apps">' + apps + "</div>" +
-      '<p class="muted">' + esc(t(th.data)) + "</p>" +
-      "</section>" +
-      '<section aria-labelledby="earlier-h"><h2 id="earlier-h">' + esc(t({ en: "Earlier projects", fr: "Projets précédents" })) + "</h2>" +
-      '<ul class="entries">' + earlier +
-      '<li class="entry"><span class="when"></span><div><h3>' + esc(t(projectsTitle)) + "</h3><p>" + esc(t(S.projects.text)) + "</p>" +
-      links([{ label: "github.com/" + S.person.github, href: S.projects.href }]) + "</div></li>" +
-      "</ul></section></div>";
+      '<div class="prose">' + desc + "</div>" + apps +
+      '<p class="muted note">' + esc(t(th.data)) + "</p></section>";
+
+    var earlier = '<ul class="entries">' + S.experience.map(function (e) {
+      return entryRow(t(e.when), "<h3>" + esc(t(e.title)) + "</h3>" +
+        '<p class="where">' + esc(t(e.where)) + "</p><p>" + esc(t(e.text)) + "</p>" + links(e.links));
+    }).join("") +
+      entryRow("", "<h3>" + esc(t({ en: "GitHub projects", fr: "Projets GitHub" })) + "</h3><p>" + esc(t(S.projects.text)) + "</p>" +
+        links([{ label: "github.com/" + S.person.github, href: S.projects.href }])) + "</ul>";
+
+    return '<div class="wrap page">' + pageHead("research") + thesis +
+      card("earlier-h", t({ en: "Earlier projects", fr: "Projets précédents" }), earlier) + "</div>";
   }
 
   /* ---------- Publications ---------- */
 
   function renderPublications() {
-    var pubs = S.publications.map(function (p) {
+    var pubs = '<ul class="entries">' + S.publications.map(function (p) {
       var authors = p.authors.map(function (a) {
         return /Dovodji/.test(a) ? "<strong>" + esc(a) + "</strong>" : esc(a);
       }).join(", ");
-      return '<li class="entry"><span class="when">' + esc(p.year) + "</span><div>" +
+      return entryRow(p.year, '<h3 class="pub-title">' + esc(p.title) + "</h3>" +
         '<p class="pub-authors">' + authors + "</p>" +
-        '<h3 class="pub-title">' + esc(p.title) + "</h3>" +
-        '<p class="where"><span class="badge badge-quiet">' + esc(t(p.status)) + "</span> " + esc(t(p.note)) + "</p>" +
-        links(p.links) + "</div></li>";
-    }).join("");
-    var reports = S.reports.map(function (r) {
-      return '<li class="entry"><span class="when">' + esc(r.year) + "</span><div>" +
-        '<h3 class="pub-title">' + esc(t(r.title)) + "</h3>" +
-        '<p class="where">' + esc(t(r.kind)) + "</p>" + links(r.links) + "</div></li>";
-    }).join("");
+        '<p class="where"><span class="badge badge-quiet">' + esc(t(p.status)) + "</span> " + esc(t(p.note)) + "</p>" + links(p.links));
+    }).join("") + "</ul>";
+    var reports = '<ul class="entries">' + S.reports.map(function (r) {
+      return entryRow(r.year, '<h3 class="pub-title">' + esc(t(r.title)) + "</h3>" +
+        '<p class="where">' + esc(t(r.kind)) + "</p>" + links(r.links));
+    }).join("") + "</ul>";
     return '<div class="wrap page">' + pageHead("publications") +
-      '<section aria-labelledby="papers-h"><h2 id="papers-h">' + esc(t({ en: "Papers", fr: "Articles" })) + "</h2>" +
-      '<ul class="entries">' + pubs + "</ul></section>" +
-      '<section aria-labelledby="reports-h"><h2 id="reports-h">' + esc(t({ en: "Theses and reports", fr: "Mémoires et rapports" })) + "</h2>" +
-      '<ul class="entries">' + reports + "</ul></section></div>";
+      card("papers-h", t({ en: "Papers", fr: "Articles" }), pubs) +
+      card("reports-h", t({ en: "Theses and reports", fr: "Mémoires et rapports" }), reports) + "</div>";
+  }
+
+  /* ---------- Logiciels (page cachée tant que S.software.show vaut false) ---------- */
+
+  function renderSoftware() {
+    var items = (S.software ? S.software.items : []).map(function (p, i) {
+      return '<section class="card" aria-labelledby="sw-' + i + '">' +
+        '<h2 id="sw-' + i + '">' + esc(p.name) + (p.status ? ' <span class="badge">' + esc(t(p.status)) + "</span>" : "") + "</h2>" +
+        '<div class="prose"><p>' + esc(t(p.text)) + "</p></div>" + links(p.links) + "</section>";
+    }).join("");
+    return '<div class="wrap page">' + pageHead("software") + items + "</div>";
   }
 
   /* ---------- Conférences (frise) ---------- */
@@ -433,7 +494,7 @@
           "<h3>" + esc(t(ev.event)) + "</h3>" +
           '<p class="event-meta">' + esc(t(UI.types[ev.type])) + ", " + esc(t(ev.place)) + "</p>";
         if (ev.role === "talk") {
-          html += '<p class="event-talk"><span class="vh">' + esc(t(UI.roles.talk)) + '. </span>' +
+          html += '<p class="event-talk"><span class="vh">' + esc(t(UI.roles.talk)) + ". </span>" +
             (ev.title ? "<em>" + esc(t(ev.title)) + "</em>" : esc(t({ en: "Contributed talk", fr: "Exposé" }))) + "</p>";
         } else {
           html += '<p class="vh">' + esc(t(UI.roles.participant)) + "</p>";
@@ -442,11 +503,10 @@
         html += links(ev.links);
         return html + "</li>";
       }).join("");
-      return '<section class="year-group" aria-labelledby="y' + y + '"><h2 class="year" id="y' + y + '">' + y + "</h2>" +
-        '<ol class="events">' + evs + "</ol></section>";
+      return card("y" + y, String(y), '<ol class="events">' + evs + "</ol>", "year-card");
     }).join("");
 
-    return '<div class="wrap page">' + pageHead("talks") + legend + '<div class="timeline">' + body + "</div></div>";
+    return '<div class="wrap page">' + pageHead("talks") + legend + body + "</div>";
   }
 
   /* ---------- Enseignement ---------- */
@@ -461,7 +521,7 @@
             topics = '<p class="topics">' + esc(list.join(", ")) + ".</p>";
           } else {
             topics = '<ul class="syllabus">' + list.map(function (it) {
-              var sub = it.sub ? '<ul>' + it.sub.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "";
+              var sub = it.sub ? "<ul>" + it.sub.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "";
               return "<li><span>" + esc(it.text) + "</span>" + sub + "</li>";
             }).join("") + "</ul>";
           }
@@ -474,20 +534,17 @@
           '<div class="course-main"><h3>' + esc(t(c.subject)) + "</h3>" + topics + links(c.materials) + "</div>" +
           '<div class="course-hours">' + esc(hours) + "</div></li>";
       }).join("");
-      return '<section class="year-group year-group-wide" aria-labelledby="t' + esc(y.year) + '">' +
-        '<h2 class="year" id="t' + esc(y.year) + '">' + esc(y.year) + "</h2>" +
-        '<div><p class="year-where">' + esc(y.where) + '</p><ul class="courses">' + rows + "</ul></div></section>";
+      return card("t" + y.year, y.year, '<p class="year-where">' + esc(y.where) + '</p><ul class="courses">' + rows + "</ul>");
     }).join("");
 
-    var outreach = S.outreach.filter(function (o) { return !o.hideOnTeachingPage; }).map(function (o) {
-      return '<li class="entry"><span class="when">' + esc(t(o.when)) + "</span><div><h3>" + esc(t(o.title)) + "</h3>" +
-        '<p class="where">' + esc(o.place) + "</p><p>" + esc(t(o.text)) + "</p></div></li>";
-    }).join("");
+    var shown = S.outreach.filter(function (o) { return !o.hideOnTeachingPage; });
+    var outreach = shown.length ? card("outreach-h", t({ en: "Outreach and mentoring", fr: "Médiation scientifique et tutorat" }),
+      '<ul class="entries">' + shown.map(function (o) {
+        return entryRow(t(o.when), "<h3>" + esc(t(o.title)) + "</h3>" +
+          '<p class="where">' + esc(o.place) + "</p><p>" + esc(t(o.text)) + "</p>");
+      }).join("") + "</ul>") : "";
 
-    return '<div class="wrap page">' + pageHead("teaching") + years +
-      '<section class="outreach" aria-labelledby="outreach-h"><h2 id="outreach-h">' +
-      esc(t({ en: "Outreach and mentoring", fr: "Médiation scientifique et tutorat" })) + "</h2>" +
-      '<ul class="entries">' + outreach + "</ul></section></div>";
+    return '<div class="wrap page">' + pageHead("teaching") + years + outreach + "</div>";
   }
 
   /* ---------- Contact ---------- */
@@ -498,18 +555,19 @@
     var row = function (label, html) {
       return '<div class="contact-row"><dt>' + esc(label) + "</dt><dd>" + html + "</dd></div>";
     };
-    return '<div class="wrap page">' + pageHead("contact") +
-      '<dl class="contact-list">' +
+    var online = '<p><a href="https://github.com/' + esc(P.github) + '" target="_blank" rel="noopener">github.com/' + esc(P.github) + "</a></p>" +
+      (P.researchgate ? '<p><a href="' + esc(P.researchgate) + '" target="_blank" rel="noopener">ResearchGate</a></p>' : "");
+    var body = '<dl class="contact-list">' +
       row(t({ en: "Email", fr: "E-mail" }),
-        '<p class="contact-email"><a href="mailto:' + esc(email()) + '">' + '<span class="nw">' + esc(emailShown().split("@")[0]) + '</span><wbr><span class="nw">@' + esc(S.person.emailDomain) + "</span></a></p>" +
-        '<p><a class="btn btn-primary" href="mailto:' + esc(email()) + "?subject=" + subject + '">' +
-        esc(t({ en: "Write to me", fr: "M'écrire" })) + "</a></p>") +
+        '<p class="contact-email"><a href="mailto:' + esc(email()) + '">' + '<span class="nw">' + esc(emailShown().split("@")[0]) + '</span><wbr><span class="nw">@' + esc(P.emailDomain) + "</span></a></p>" +
+        '<p><a class="btn btn-primary" href="mailto:' + esc(email()) + "?subject=" + subject + '">' + icon("mail") + "<span>" +
+        esc(t({ en: "Write to me", fr: "M'écrire" })) + "</span></a></p>") +
       row(t({ en: "Address", fr: "Adresse" }),
         "<address>" + esc(P.lab) + "<br>" + esc(P.university) + "<br>" +
         esc(P.address[0]) + "<br>" + esc(P.address[1]) + "</address>") +
-      row(t({ en: "Online", fr: "En ligne" }),
-        '<p><a href="https://github.com/' + esc(P.github) + '" target="_blank" rel="noopener">github.com/' + esc(P.github) + "</a></p>") +
-      "</dl></div>";
+      row(t({ en: "Online", fr: "En ligne" }), online) +
+      "</dl>";
+    return '<div class="wrap page">' + pageHead("contact") + card("", "", body, "contact-card") + "</div>";
   }
 
   /* ---------- Figure de l'accueil : traces satellitaires et champ reconstruit ---------- */
@@ -601,15 +659,15 @@
         tracks.push({ x: x, dir: -1 });
         tracks.push({ x: x + spacing / 2, dir: 1 });
       }
-      // La trace suivie par le satellite : une trace montante qui arrive en haut vers 78 % de la largeur
+      // La trace suivie par le satellite : une trace montante qui arrive en haut vers 92 % de la largeur
       var hero = null, best = Infinity;
       tracks.forEach(function (tr, ti) {
         if (tr.dir > 0) return;
         var topX = tr.x + len * ct;
-        var dist = Math.abs(topX - 0.78 * W);
+        var dist = Math.abs(topX - 0.92 * W);
         if (dist < best && tr.x > 0) { best = dist; hero = { ti: ti, x0: tr.x }; }
       });
-      if (hero) hero.sPark = (H - 0.16 * H) / st;
+      if (hero) hero.sPark = (H - 0.12 * H) / st;
 
       tracks.forEach(function (tr, ti) {
         for (var s2 = 0; s2 <= len; s2 += step) {
@@ -718,7 +776,7 @@
 
   var RENDER = {
     home: renderHome, cv: renderCV, research: renderResearch, publications: renderPublications,
-    talks: renderTalks, teaching: renderTeaching, contact: renderContact
+    software: renderSoftware, talks: renderTalks, teaching: renderTeaching, contact: renderContact
   };
 
   function render() {
@@ -729,7 +787,7 @@
     document.getElementById("site-footer").innerHTML = page === "cv" ? "" : renderFooter();
 
     var navItem = UI.nav.filter(function (n) { return n.id === page; })[0];
-    document.title = page === "home" ? S.person.name : t(navItem.label) + " | " + S.person.name;
+    if (page !== "home" && navItem) document.title = t(navItem.label) + " | " + S.person.name;
 
     var toggle = document.querySelector(".lang-toggle");
     toggle.addEventListener("click", function () {
@@ -738,6 +796,15 @@
       render();
       var again = document.querySelector(".lang-toggle");
       if (again) again.focus();
+    });
+
+    var theme = document.querySelector(".theme-toggle");
+    theme.addEventListener("click", function () {
+      var dark = !isDark();
+      document.documentElement.classList.toggle("dark", dark);
+      try { window.localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) { /* rien */ }
+      theme.setAttribute("aria-pressed", String(dark));
+      theme.innerHTML = themeButtonInner();
     });
 
     var menu = document.querySelector(".menu-toggle");

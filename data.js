@@ -14,6 +14,10 @@ window.SITE = {
       fr: "Doctorant en mathématiques appliquées (statistique)"
     },
     phdStart: "2025-10",
+    chips: {
+      en: ["Spatio-temporal statistics", "Functional data analysis", "Nonparametric statistics", "RBF splines", "Missing data", "Satellite oceanography", "Gulf Stream"],
+      fr: ["Statistique spatio-temporelle", "Données fonctionnelles", "Statistique non paramétrique", "Splines RBF", "Données manquantes", "Océanographie satellitaire", "Gulf Stream"]
+    },
     statement: {
       en: "I develop statistical methods to reconstruct ocean fields from noisy and irregularly sampled satellite measurements.",
       fr: "Je développe des méthodes statistiques pour reconstruire des champs océaniques à partir de mesures satellitaires bruitées et irrégulièrement échantillonnées."
@@ -33,7 +37,12 @@ window.SITE = {
     emailDomain: "u-bourgogne.fr",
     website: "kpdovodji.github.io",
     github: "kpdovodji",
+    researchgate: "https://www.researchgate.net/profile/Pierre-Dovodji",
     photo: "myphoto.jpg",
+    affiliation: {
+      en: "Institut de Mathématiques de Bourgogne (IMB), Université Bourgogne Europe, Dijon",
+      fr: "Institut de Mathématiques de Bourgogne (IMB), Université Bourgogne Europe, Dijon"
+    },
     lab: "Institut de Mathématiques de Bourgogne (IMB, UMR CNRS 5584)",
     university: "Université Bourgogne Europe",
     address: ["9 avenue Alain Savary, BP 47870", "21078 Dijon Cedex, France"]
@@ -355,6 +364,24 @@ window.SITE = {
       ]
     }
   ],
+
+  // Page « Software » : elle reste cachée tant que show vaut false.
+  // Quand le package sera publié : mettre show: true, ajouter le lien dans links,
+  // enlever la ligne <meta name="robots" content="noindex"> de software.html et ajouter la page à sitemap.xml.
+  software: {
+    show: false,
+    items: [
+      {
+        name: "ST-RBF",
+        status: { en: "In preparation", fr: "En préparation" },
+        text: {
+          en: "A package to reconstruct spatio-temporal fields from sparse and noisy data with the space-time RBF splines developed in my thesis.",
+          fr: "Un package pour reconstruire des champs spatio-temporels à partir de données éparses et bruitées, avec les splines RBF en espace-temps développées dans ma thèse."
+        },
+        links: []
+      }
+    ]
+  },
 
   projects: {
     text: {
